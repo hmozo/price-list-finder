@@ -1,8 +1,8 @@
 package cucumber;
 
-import com.indit.pricelist.contexts.shop.pricelists.domain.exceptions.PriceListNotFoundException;
-import com.indit.pricelist.contexts.shop.pricelists.interfaces.web.PriceListController;
-import com.indit.pricelist.contexts.shop.pricelists.interfaces.web.dto.PriceListResponse;
+import com.indit.pricelist.contexts.shop.pricelists.application.exceptions.PriceListNotFoundException;
+import com.indit.pricelist.contexts.shop.pricelists.controller.PriceListController;
+import com.indit.pricelist.contexts.shop.pricelists.controller.dto.PriceListResponse;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -85,14 +85,15 @@ public class PriceListSteps extends SpringIntegrationTest {
         String startDateString = dataTable.cell(row, 5);
         String endDateString = dataTable.cell(row, 6);
 
-        return PriceListResponse.builder()
-                .brandId(Integer.parseInt(brandIdString))
-                .priceListId(Long.parseLong(priceListIdString))
-                .productId(Long.parseLong(productIdString))
-                .price(new BigDecimal(priceString))
-                .currency(currency)
-                .startDate(LocalDateTime.parse(startDateString))
-                .endDate(LocalDateTime.parse(endDateString))
-                .build();
+        var priceListResponse= new PriceListResponse();
+        priceListResponse.setPriceListId(Long.parseLong(priceListIdString));
+        priceListResponse.setBrandId(Integer.parseInt(brandIdString));
+        priceListResponse.setProductId(Long.parseLong(productIdString));
+        priceListResponse.setPrice(new BigDecimal(priceString));
+        priceListResponse.setCurrency(currency);
+        priceListResponse.setStartDate(LocalDateTime.parse(startDateString));
+        priceListResponse.setEndDate(LocalDateTime.parse(endDateString));
+
+        return priceListResponse;
     }
 }

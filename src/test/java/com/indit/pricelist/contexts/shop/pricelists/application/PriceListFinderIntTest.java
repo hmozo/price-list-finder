@@ -1,16 +1,19 @@
 package com.indit.pricelist.contexts.shop.pricelists.application;
 
-import com.indit.pricelist.contexts.shop.pricelists.domain.exceptions.PriceListNotFoundException;
-import com.indit.pricelist.contexts.shop.pricelists.domain.model.Brand;
-import com.indit.pricelist.contexts.shop.pricelists.domain.model.Price;
-import com.indit.pricelist.contexts.shop.pricelists.domain.model.PriceList;
-import com.indit.pricelist.contexts.shop.pricelists.domain.model.ProductId;
+import com.indit.pricelist.contexts.shop.pricelists.application.exceptions.PriceListNotFoundException;
 import com.indit.pricelist.contexts.shop.pricelists.config.DdbbBaseTest;
+import com.indit.pricelist.contexts.shop.pricelists.application.model.Brand;
+import com.indit.pricelist.contexts.shop.pricelists.application.model.Price;
+import com.indit.pricelist.contexts.shop.pricelists.application.model.PriceList;
+import com.indit.pricelist.contexts.shop.pricelists.application.model.ProductId;
+import com.indit.pricelist.contexts.shop.pricelists.controller.mapper.PriceListToPriceListResponseMapper;
+import com.indit.pricelist.contexts.shop.pricelists.application.ports.in.PriceListFinder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,6 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class PriceListFinderIntTest extends DdbbBaseTest {
     @Autowired
     private PriceListFinder priceListFinder;
+
+    @MockBean
+    private PriceListToPriceListResponseMapper priceListToPriceListResponseConverter;
 
     private static Stream<Arguments> priceListExistingCases(){
         return Stream.of(
@@ -63,7 +69,7 @@ class PriceListFinderIntTest extends DdbbBaseTest {
         );
     }
 
-        @ParameterizedTest
+    @ParameterizedTest
     @MethodSource("priceListExistingCases")
     void testFindPriceList_givenExistingProductBrandDate_returnsPriceListInDateRangeWithHighestPriority(
             LocalDateTime inputEffectiveDate, Long inputProductId, int inputBrandId,
@@ -73,7 +79,7 @@ class PriceListFinderIntTest extends DdbbBaseTest {
     ) throws PriceListNotFoundException {
         var expectedPriceList= PriceList.builder()
                 .priceListId(expectedPriceListId)
-                .brand(Brand.builder().id(expectedBrandId).name(expectedBrandName).build())
+                .brandId(expectedBrandId)
                 .productId(ProductId.builder().value(expectedProductId).build())
                 .startDate(expectedStartDate)
                 .endDate(expectedEndDate)
@@ -94,5 +100,4 @@ class PriceListFinderIntTest extends DdbbBaseTest {
     ){
         assertThrows(PriceListNotFoundException.class, ()->priceListFinder.findPriceList(inputEffectiveDate, ProductId.builder().value(inputProductId).build(), Brand.builder().id(inputBrandId).build()));
     }
-
 }

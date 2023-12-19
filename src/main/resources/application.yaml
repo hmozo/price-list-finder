@@ -14,7 +14,7 @@ spring:
     change-log: classpath:/db/changelog/db.changelog-master.xml
 
 springdoc:
-  packagesToScan: com.indit.pricelist.contexts.shop.pricelists.interfaces.web
+  packagesToScan: com.indit.pricelist.contexts.shop.pricelists.controller
   show-actuator: true
 
 management:

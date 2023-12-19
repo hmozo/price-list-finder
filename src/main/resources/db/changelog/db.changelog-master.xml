@@ -9,4 +9,11 @@
         <sqlFile path="db/changelog/populate_brand.sql" />
         <sqlFile path="db/changelog/populate_pricelist.sql" />
     </changeSet>
+
+    <changeSet id="2" author="Hugo">
+        <dropTable schemaName="" tableName="prices" />
+        <dropTable schemaName="" tableName="brands" />
+        <sqlFile path="db/changelog/db.changelog-scriptV2.0.sql" />
+        <sqlFile path="db/changelog/populate_pricelist.sql" />
+    </changeSet>
 </databaseChangeLog>

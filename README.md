@@ -38,22 +38,22 @@ Connecting to the H2 Console:
 
 ## Liquibase Migration Management
 
-Liquibase is used to handle database migrations by applying changes defined in the file
-* **classpath:/db/changelog/db.changelog-master.xml** 
-
-(This file contains SQL statements and instructions for managing database schema changes)
+Liquibase is used to handle database revisions defined within the file
+* **resources/db/changelog/db.changelog-master.xml** 
 
 
-## OpenAPI
+## OpenAPI First
 
-This project utilizes OpenAPI 3 to provide comprehensive and standardized documentation for its RESTful APIs.
+This project uses OpenAPI 3 to generate the code for its RESTful APIs endpoints and to provide comprehensive and standardized documentation.
 
-To access the OpenAPI documentation for our APIs, navigate to the following URL:
+To generate the classes through the plugin, execute this instruction using 'openapi' profile.
+* **> mvn clean install**
 
+To access the OpenAPI documentation for our APIs:
 * http://localhost:8080/v3/api-docs
+* **resources/openapi/pricelist-api.yaml**
 
 For exploring the APIs directly:
-
 * http://localhost:8080/swagger-ui/index.html
 
 
