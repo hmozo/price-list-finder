@@ -3,6 +3,7 @@ package com.indit.pricelist.contexts.shop.pricelists.infrastructure;
 import com.indit.pricelist.contexts.shop.pricelists.config.DdbbBaseTest;
 import com.indit.pricelist.contexts.shop.pricelists.application.ports.out.PriceListRepository;
 import com.indit.pricelist.contexts.shop.pricelists.controller.mapper.PriceListToPriceListResponseMapper;
+import com.indit.pricelist.contexts.shop.pricelists.infrastructure.mapper.PriceListEntityToPriceListMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,8 @@ class PriceListRepositoryTest extends DdbbBaseTest {
     private PriceListRepository priceListRepository;
     @MockBean
     private PriceListToPriceListResponseMapper priceListToPriceListResponseConverter;
+    @MockBean
+    private PriceListEntityToPriceListMapper priceListEntityToPriceListMapper;
 
     @Test
     void testFindPriceListByDateProductAndBrand_givenExistingProductBrandDate_returns2PriceList(){

@@ -8,6 +8,7 @@ import com.indit.pricelist.contexts.shop.pricelists.application.model.PriceList;
 import com.indit.pricelist.contexts.shop.pricelists.application.model.ProductId;
 import com.indit.pricelist.contexts.shop.pricelists.controller.mapper.PriceListToPriceListResponseMapper;
 import com.indit.pricelist.contexts.shop.pricelists.application.ports.in.PriceListFinder;
+import com.indit.pricelist.contexts.shop.pricelists.infrastructure.mapper.PriceListEntityToPriceListMapper;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -31,6 +32,8 @@ class PriceListFinderIntTest extends DdbbBaseTest {
 
     @MockBean
     private PriceListToPriceListResponseMapper priceListToPriceListResponseConverter;
+    @MockBean
+    private PriceListEntityToPriceListMapper priceListEntityToPriceListMapper;
 
     private static Stream<Arguments> priceListExistingCases(){
         return Stream.of(

@@ -13,10 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PriceListRepositoryImpl implements PriceListRepository {
     private final PriceListJPARepository priceListJPARepository;
-    private final PriceListEntityToPriceListMapper priceListEntityToPriceListConverter;
+
     @Override
     public List<PriceList> findPriceListByDateProductAndBrand(LocalDateTime effectiveDate, Long productId, int brandId) {
         List<PriceListEntity> priceListEntities= priceListJPARepository.findPriceListByDateProductAndBrand(effectiveDate, productId, brandId);
-        return priceListEntities.stream().map(entity->priceListEntityToPriceListConverter.convert(entity)).toList();
+        return priceListEntities.stream().map(entity->PriceListEntityToPriceListMapper.MAPPER.convert(entity)).toList();
     }
 }
